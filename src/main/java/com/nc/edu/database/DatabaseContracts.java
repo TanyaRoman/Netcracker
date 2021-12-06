@@ -1,11 +1,20 @@
 package com.nc.edu.database;
 
 import com.nc.edu.essence.contract.Contract;
+import com.nc.edu.service.BubbleSort;
+import com.nc.edu.service.ISorter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class DatabaseContracts {
 
     public Contract[] contracts;
     private int length;
+    private ISorter sorter;
 
     public DatabaseContracts() {
         contracts = new Contract[0];
@@ -128,6 +137,22 @@ public class DatabaseContracts {
         }
         return true;
     }
+
+    /**
+     * Search in the database by the passed predicate
+     * @param p predicate
+     * @return List Contracts
+     */
+    public List<Contract> search (Predicate<Contract> p) {
+        List<Contract> foundContracts = Arrays.stream(contracts).filter(p).collect(Collectors.toList());
+        return foundContracts;
+    }
+
+
+    public void sort (Comparable<Contract> comparable){
+        this.sorter = new BubbleSort(contracts);
+    }
+
 
     //    public void setContracts(Contract[] contracts) {
 //        this.contracts = contracts;

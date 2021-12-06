@@ -12,6 +12,9 @@ import com.nc.edu.essence.person.Person;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -123,5 +126,27 @@ public class DatabaseContractsTest {
         assertEquals(newContract[0], contract2[0]);
         assertEquals(newContract[1], contract2[1]);
         assertEquals(newContract[2], contract2[2]);
+    }
+
+    @Test
+    public void search(){
+        Person person1 = new Person(1, new FullName("aa", "ss", "dd"), LocalDate.of(1971, 02, 10), Gender.FEMALE, new Passport(2222, 456879));
+        DigitalTVContract digitalTVContract1 = new DigitalTVContract(1, LocalDate.of(2021, 03, 22), LocalDate.of(2022, 03, 22), 1, person1, 1);
+        InternetContract internetContract1 = new InternetContract(2, LocalDate.of(2021, 03, 22), LocalDate.of(2022, 03, 22), 1, person1, 200);
+        MobileContract mobileContract1 = new MobileContract(3, LocalDate.of(2021, 03, 22), LocalDate.of(2022, 03, 22), 1, person1, 1000, 1000, 7);
+        Contract[] contract = new Contract[3];
+        contract[0] = digitalTVContract1;
+        contract[1] = internetContract1;
+        contract[2] = mobileContract1;
+
+        DatabaseContracts databaseContracts = new DatabaseContracts();
+        databaseContracts.addContracts(contract);
+        Predicate<Contract> predicate = a -> a.getId()==2;
+        List<Contract> contractList = databaseContracts.search(predicate);
+        List<Contract> test = new ArrayList<>();
+//        test.add(digitalTVContract1);
+        test.add(internetContract1);
+//        test.add(mobileContract1);
+        assertEquals(test, contractList);
     }
 }
