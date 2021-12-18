@@ -3,9 +3,11 @@ package com.nc.edu.database;
 import com.nc.edu.essence.contract.Contract;
 import com.nc.edu.service.BubbleSort;
 import com.nc.edu.service.ISorter;
+import com.nc.edu.service.ShuttleSort;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -14,7 +16,8 @@ public class DatabaseContracts {
 
     public Contract[] contracts;
     private int length;
-    private ISorter sorter;
+    private ISorter sorter = new BubbleSort();
+//    private ISorter sorter = new ShuttleSort();
 
     public DatabaseContracts() {
         contracts = new Contract[0];
@@ -138,19 +141,26 @@ public class DatabaseContracts {
         return true;
     }
 
+
     /**
      * Search in the database by the passed predicate
      * @param p predicate
-     * @return List Contracts
+     * @return DatabaseContracts DatabaseContracts
      */
-    public List<Contract> search (Predicate<Contract> p) {
-        List<Contract> foundContracts = Arrays.stream(contracts).filter(p).collect(Collectors.toList());
-        return foundContracts;
+    public DatabaseContracts search (Predicate<Contract> p) {
+        DatabaseContracts dc = new DatabaseContracts();
+//        Contract[] cont = Arrays.stream(contracts).filter(p).collect();
+        dc.addContracts(Arrays.stream(contracts).filter(p).toArray(Contract[]::new));
+        return dc;
     }
 
 
-    public void sort (Comparable<Contract> comparable){
-        this.sorter = new BubbleSort(contracts);
+    /**
+     * Sorting the database array
+     * @param comparator comparator
+     */
+    public void sort (Comparator<Contract> comparator){
+        this.contracts= sorter.sort(contracts, comparator);
     }
 
 

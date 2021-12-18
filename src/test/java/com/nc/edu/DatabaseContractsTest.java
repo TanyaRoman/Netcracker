@@ -1,6 +1,7 @@
 package com.nc.edu;
 
 import com.nc.edu.database.DatabaseContracts;
+import com.nc.edu.essence.comparators.contract.ContractStartDataComparator;
 import com.nc.edu.essence.contract.Contract;
 import com.nc.edu.essence.contract.DigitalTVContract;
 import com.nc.edu.essence.contract.InternetContract;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -142,11 +144,37 @@ public class DatabaseContractsTest {
         DatabaseContracts databaseContracts = new DatabaseContracts();
         databaseContracts.addContracts(contract);
         Predicate<Contract> predicate = a -> a.getId()==2;
-        List<Contract> contractList = databaseContracts.search(predicate);
-        List<Contract> test = new ArrayList<>();
-//        test.add(digitalTVContract1);
-        test.add(internetContract1);
-//        test.add(mobileContract1);
-        assertEquals(test, contractList);
+        DatabaseContracts databaseContracts2 = new DatabaseContracts();
+        databaseContracts2 = databaseContracts.search(predicate);
+        Contract[] test = new Contract[1];
+        test[0] = internetContract1;
+        Contract[] contract2 = databaseContracts2.getContracts();
+
+        assertEquals(test[0], contract2[0]);
+    }
+
+    @Test
+    public void sort(){
+        Person person1 = new Person(1, new FullName("aa", "ss", "dd"), LocalDate.of(1971, 02, 10), Gender.FEMALE, new Passport(2222, 456879));
+        DigitalTVContract digitalTVContract1 = new DigitalTVContract(1, LocalDate.of(2021, 03, 22), LocalDate.of(2022, 03, 22), 1, person1, 1);
+        InternetContract internetContract1 = new InternetContract(2, LocalDate.of(2021, 9, 22), LocalDate.of(2022, 03, 22), 1, person1, 200);
+        MobileContract mobileContract1 = new MobileContract(3, LocalDate.of(2021, 03, 20), LocalDate.of(2022, 03, 22), 1, person1, 1000, 1000, 7);
+        Contract[] contract = new Contract[3];
+        contract[0] = digitalTVContract1;
+        contract[1] = internetContract1;
+        contract[2] = mobileContract1;
+
+        DatabaseContracts databaseContracts = new DatabaseContracts();
+        databaseContracts.addContracts(contract);
+
+        Comparator<Contract> comparator = new ContractStartDataComparator();
+        databaseContracts.sort(comparator);
+
+        Contract[] newContract = new Contract[3];
+        newContract[0] = mobileContract1;
+        newContract[1] = digitalTVContract1;
+        newContract[2] = internetContract1;
+
+        assertTrue(databaseContracts.equalsArrayContracts(newContract));
     }
 }

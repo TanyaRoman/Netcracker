@@ -2,6 +2,8 @@ package com.nc.edu.service;
 
 import com.nc.edu.essence.contract.Contract;
 
+import java.util.Comparator;
+
 public interface ISorter {
-    void sort(Contract[] contracts, Comparable<Contract> comparable);
+    Contract[] sort(Contract[] contracts, Comparator<Contract> comparator);
 }
