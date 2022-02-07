@@ -1,17 +1,28 @@
 package com.nc.edu.essence.person;
 
+import com.opencsv.bean.CsvBindByPosition;
+
 import java.util.Objects;
 
 public class FullName {
 
+//    @CsvBindByPosition(position = 5)
     public String surname;
+
+//    @CsvBindByPosition(position = 6)
     public String name;
+
+//    @CsvBindByPosition(position = 7)
     public String patronymic;
 
     public FullName(String surname, String name, String patronymic) {
         this.surname = surname;
         this.name = name;
         this.patronymic = patronymic;
+    }
+
+    public FullName() {
+
     }
 
     public String getSurname() {

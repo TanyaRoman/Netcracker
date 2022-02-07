@@ -1,14 +1,20 @@
 package com.nc.edu.essence.contract;
 
 import com.nc.edu.essence.person.Person;
+import com.opencsv.bean.CsvBindByPosition;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class MobileContract extends Contract {
 
+//    @CsvBindByPosition(position = 13)
     public int numberOfMinutes;
+
+//    @CsvBindByPosition(position = 14)
     public int numberOfSMS;
+
+//    @CsvBindByPosition(position = 15)
     public int numberOfGBTraffic;
 
     public MobileContract(long id, LocalDate startData, LocalDate expirationData, long number, Person owner, int numberOfMinutes, int numberOfSMS, int numberOfGBTraffic) {
@@ -16,6 +22,10 @@ public class MobileContract extends Contract {
         this.numberOfMinutes = numberOfMinutes;
         this.numberOfSMS = numberOfSMS;
         this.numberOfGBTraffic = numberOfGBTraffic;
+    }
+
+    public MobileContract() {
+
     }
 
     public int getNumberOfMinutes() {

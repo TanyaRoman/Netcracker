@@ -1,15 +1,24 @@
 package com.nc.edu.essence.person;
 
+import com.opencsv.bean.CsvBindByPosition;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Person {
 
+//    @CsvBindByPosition(position = 4)
     public long id;
+
     public FullName fullName;
+
+//    @CsvBindByPosition(position = 8)
     public LocalDate dateOfBirth;
+
+//    @CsvBindByPosition(position = 9)
     public Gender gender;
+
     public Passport seriesAndNumberPassport;
 
     public Person(long id, FullName fullName, LocalDate dateOfBirth, Gender gender, Passport seriesAndNumberPassport) {
@@ -18,6 +27,10 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.seriesAndNumberPassport = seriesAndNumberPassport;
+    }
+
+    public Person() {
+
     }
 
     public int yearsOld(){

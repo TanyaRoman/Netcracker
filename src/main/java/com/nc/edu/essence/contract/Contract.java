@@ -1,16 +1,25 @@
 package com.nc.edu.essence.contract;
 
 import com.nc.edu.essence.person.Person;
+import com.opencsv.bean.CsvBindByPosition;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class Contract {
 
+//    @CsvBindByPosition(position = 0)
     public long id;
+
+//    @CsvBindByPosition(position = 1)
     public LocalDate startData;
+
+//    @CsvBindByPosition(position = 2)
     public LocalDate expirationData;
+
+//    @CsvBindByPosition(position = 3)
     public long number;
+
     public Person owner;
 
     public Contract(long id, LocalDate startData, LocalDate expirationData, long number, Person owner) {
@@ -19,6 +28,10 @@ public class Contract {
         this.expirationData = expirationData;
         this.number = number;
         this.owner = owner;
+    }
+
+    public Contract() {
+
     }
 
     public long getId() {

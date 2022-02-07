@@ -1,15 +1,24 @@
 package com.nc.edu.essence.person;
 
+import com.opencsv.bean.CsvBindByPosition;
+
 import java.util.Objects;
 
 public class Passport {
 
+//    @CsvBindByPosition(position = 10)
     public int series;
+
+//    @CsvBindByPosition(position = 11)
     public int number;
 
     public Passport(int series, int number) {
         this.series = series;
         this.number = number;
+    }
+
+    public Passport() {
+
     }
 
     public int getSeries() {

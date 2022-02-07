@@ -1,17 +1,23 @@
 package com.nc.edu.essence.contract;
 
 import com.nc.edu.essence.person.Person;
+import com.opencsv.bean.CsvBindByPosition;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class DigitalTVContract extends Contract {
 
+//    @CsvBindByPosition(position = 13)
     public int channelPackage;
 
     public DigitalTVContract(long id, LocalDate startData, LocalDate expirationData, long number, Person owner, int channelPackage) {
         super(id, startData, expirationData, number, owner);
         this.channelPackage = channelPackage;
+    }
+
+    public DigitalTVContract() {
+
     }
 
     public int getChannelPackage() {

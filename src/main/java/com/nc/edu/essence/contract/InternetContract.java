@@ -1,17 +1,23 @@
 package com.nc.edu.essence.contract;
 
 import com.nc.edu.essence.person.Person;
+import com.opencsv.bean.CsvBindByPosition;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class InternetContract extends Contract {
 
+//    @CsvBindByPosition(position = 13)
     public double connectionSpeed;
 
     public InternetContract(long id, LocalDate startData, LocalDate expirationData, long number, Person owner, double connectionSpeed) {
         super(id, startData, expirationData, number, owner);
         this.connectionSpeed = connectionSpeed;
+    }
+
+    public InternetContract() {
+
     }
 
     public double getConnectionSpeed() {
