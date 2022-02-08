@@ -64,7 +64,7 @@ public class ParseCSV {
         CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).withCSVParser(parser).build();
 
         while (csvReader.readNext() != null){
-            if (csvReader.readNext().length != 10) continue;
+            if (csvReader.readNext().length != 12) continue;
             fileBack.add(csvReader.readNext());
         }
 
